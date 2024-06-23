@@ -1,36 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Articulo.Api.DAL;
 using Shared.Models;
+using Articulo.Api.Services;
+using System.Formats.Asn1;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Articulo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArticulosController(Contexto contexto) : ControllerBase
+    public class ArticulosController(ArticuloService articuloService) : ControllerBase
     {
         // GET: api/Articulos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Articulos>>> GetArticulos()
         {
-            return await contexto.Articulos.ToListAsync();
+            var articulo = await articuloService.Listar(a => true);
+
+            if(articulo is null)
+                return NotFound("No se encontraron artículos.");
+
+            return Ok(articulo);
         }
 
 		// GET: api/Articulos/5
 		[HttpGet("{id}")]
         public async Task<ActionResult<Articulos>> GetArticulos(int id)
         {
-            var articulos = await contexto.Articulos.FindAsync(id);
+            var articulos = await articuloService.Buscar(id);
 
-            if (articulos == null)
-            {
-                return NotFound();
-            }
+            if (articulos is null)
+                return NotFound($"No se encontró el artículo con ID {id}.");
 
             return articulos;
         }
@@ -38,10 +39,13 @@ namespace Articulo.Api.Controllers
 		// POST: api/Articulos
 		[HttpPost]
 		public async Task<ActionResult<Articulos>> PostArticulos(Articulos articulos) {
-			contexto.Articulos.Add(articulos);
-			await contexto.SaveChangesAsync();
 
-			return CreatedAtAction("GetArticulos", new { id = articulos.ArticuloId }, articulos);
+			var guardado = await articuloService.Guardar(articulos);
+
+			if (guardado != null)
+				return Ok(guardado);
+
+			return NotFound("No se pudo guardar el artículo.");
 		}
 
 		// PUT: api/Articulos/5
@@ -49,27 +53,11 @@ namespace Articulo.Api.Controllers
         public async Task<IActionResult> PutArticulos(int id, Articulos articulos)
         {
             if (id != articulos.ArticuloId)
-            {
-                return BadRequest();
-            }
+                return BadRequest("El ID del artículo no coincide con el ID de la URL.");
 
-			contexto.Entry(articulos).State = EntityState.Modified;
-
-            try
-            {
-                await contexto.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ArticulosExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			var modificado = await articuloService.Guardar(articulos);
+            if (!modificado)
+                return NotFound($"No se pudo actualizar el artículo con ID {id}. Puede que el artículo no exista.");
 
             return NoContent();
         }
@@ -78,21 +66,12 @@ namespace Articulo.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticulos(int id)
         {
-            var articulos = await contexto.Articulos.FindAsync(id);
-            if (articulos == null)
-            {
-                return NotFound();
-            }
+            var articulos = await articuloService.Eliminar(id);
 
-			contexto.Articulos.Remove(articulos);
-            await contexto.SaveChangesAsync();
+            if (articulos == null)
+                return NotFound($"No se pudo eliminar el artículo con ID {id}. Puede que el artículo no exista.");
 
             return NoContent();
-        }
-
-        private bool ArticulosExists(int id)
-        {
-            return contexto.Articulos.Any(e => e.ArticuloId == id);
         }
     }
 }
