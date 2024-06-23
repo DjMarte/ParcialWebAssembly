@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcialWebAssembly.Client",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Articulo.Api", "Articulo.Api\Articulo.Api.csproj", "{6565B832-7FA9-4145-865F-B39DDB532FFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6565B832-7FA9-4145-865F-B39DDB532FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6565B832-7FA9-4145-865F-B39DDB532FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6565B832-7FA9-4145-865F-B39DDB532FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
