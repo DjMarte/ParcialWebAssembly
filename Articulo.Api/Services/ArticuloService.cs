@@ -36,10 +36,10 @@ public class ArticuloService(Contexto contexto)
 		return modificado;
 	}
 
-	public async Task<bool> Eliminar(Articulos articulo) {
+	public async Task<bool?> Eliminar(int id) {
 		return await contexto.Articulos
 			.AsNoTracking()
-			.Where(a => a.ArticuloId == articulo.ArticuloId)
+			.Where(a => a.ArticuloId == id)
 			.ExecuteDeleteAsync() > 0;
 	}
 
