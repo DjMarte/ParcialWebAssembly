@@ -19,8 +19,7 @@ namespace Shared.Models
 		[Required(ErrorMessage = "Ganancia obligatoria")]
 		public double Ganancia { get; set; }
 
-		[Range(0.01, 1000000, ErrorMessage = "Ingrese un valor mayor a 0.01 y menor o igual a 1000000")]
-		[Required(ErrorMessage = "Precio obligatorio")]
+		[Range(0, 1000000, ErrorMessage = "Ingrese un valor mayor a 0.01 y menor o igual a 1000000")]
 		public double Precio { get; set; }
 	}
 }
