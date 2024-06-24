@@ -36,6 +36,13 @@ namespace Articulo.Api.Controllers
             return articulos;
         }
 
+        //GET
+		[HttpGet("existe-descripcion")]
+		public async Task<ActionResult<bool>> ExisteDescripcion(int id, string descripcion) {
+			var existe = await articuloService.ExisteDescripcion(id, descripcion);
+			return Ok(existe);
+		}
+
 		// POST: api/Articulos
 		[HttpPost]
 		public async Task<ActionResult<Articulos>> PostArticulos(Articulos articulos) {
