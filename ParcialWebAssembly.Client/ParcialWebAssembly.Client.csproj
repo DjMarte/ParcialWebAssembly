@@ -9,11 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\ArticulosPages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\ArticulosPages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\ArticulosPages\Create.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\ArticulosPages\Create.razor" />
   </ItemGroup>
 
 </Project>

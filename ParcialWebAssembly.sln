@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcialWebAssembly", "ParcialWebAssembly\ParcialWebAssembly.csproj", "{B0CEB77B-B9BE-4F29-8E07-4E10716F5352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParcialWebAssembly", "ParcialWebAssembly\ParcialWebAssembly.csproj", "{B0CEB77B-B9BE-4F29-8E07-4E10716F5352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParcialWebAssembly.Client", "ParcialWebAssembly.Client\ParcialWebAssembly.Client.csproj", "{D32B8AC8-93C9-4845-BC25-0708DEA92257}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParcialWebAssembly.Client", "ParcialWebAssembly.Client\ParcialWebAssembly.Client.csproj", "{D32B8AC8-93C9-4845-BC25-0708DEA92257}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Articulo.Api", "Articulo.Api\Articulo.Api.csproj", "{6565B832-7FA9-4145-865F-B39DDB532FFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Articulo.Api", "Articulo.Api\Articulo.Api.csproj", "{6565B832-7FA9-4145-865F-B39DDB532FFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{5357EFA6-8551-4240-8D14-BBB2A6D6A3BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
