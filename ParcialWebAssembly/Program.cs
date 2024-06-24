@@ -1,5 +1,7 @@
-using ParcialWebAssembly.Client.Pages;
+using ParcialWebAssembly.Client.Services;
 using ParcialWebAssembly.Components;
+using Shared.Interfaces;
+using Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
 	.AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddScoped<IClientService<Articulos>, ArticuloService>();
+
+builder.Services.AddScoped(a =>
+	new HttpClient
+	{
+		BaseAddress = new Uri((builder.Configuration.GetSection("Url")!.Value)!)
+	});
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
