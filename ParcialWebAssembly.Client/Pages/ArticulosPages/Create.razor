@@ -1,10 +1,11 @@
 ﻿@page "/Articulo/Create"
 
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IClientService<Articulos> articuloService
 @inject NavigationManager Navigation
 
 <PageTitle>Crear Art&iacute;culo</PageTitle>
-<EditForm Model="Articulo" OnValidSubmit="Guardar">
+<EditForm Model="Articulo" OnValidSubmit="Guardar" FormName="CrearArticulo">
 	<DataAnnotationsValidator />
 	<div class="container">
 		<div class="card shadow-lg">
@@ -34,28 +35,32 @@
 					@*Costo*@
 					<div class="col-3">
 						<label class="form-label" for="costo"><strong>Costo</strong></label>
-						<input class="form-control" id="costo" @bind="Costo" @bind:event="oninput"/>
+						<input class="form-control" id="costo" @bind="Costo" @bind:event="oninput" />
 						<ValidationMessage For="(()=> Articulo.Costo)" />
 					</div>
 					@*Ganancia*@
 					<div class="col-3">
 						<label class="form-label" for="ganancia"><strong>Ganancia</strong></label>
-						<input class="form-control" id="ganancia" @bind="Ganancia" @bind:event="oninput"/>
+						<input class="form-control" id="ganancia" @bind="Ganancia" @bind:event="oninput" />
 						<ValidationMessage For="(()=> Articulo.Ganancia)" />
 					</div>
 					@*Precio*@
 					<div class="col-3">
 						<label class="form-label" for="precio"><strong>Precio</strong></label>
-						<label class="form-control" id="precio">@Articulo.Precio.ToString("N2")</label>
+						<label class="form-control" id="precio" readonly>@Articulo.Precio.ToString("N2")</label>
 					</div>
 				</div>
 			</div>
 			@*Footer*@
 			<div class="card-footer text-center">
+				<button type="button" class="btn btn-outline-primary" @onclick="Volver">Volver</button>
+				<button type="submit" class="btn btn-outline-success">Guardar</button>
 			</div>
 		</div>
 	</div>
 </EditForm>
+
+
 
 @code {
 	public Articulos Articulo { get; set; } = new Articulos();
@@ -68,7 +73,7 @@
 		}
 
 		var crear = await articuloService.CreateAsync(Articulo);
-		if(crear != null)
+		if (crear != null)
 			Mensaje = $"El artículo {Articulo.Descripcion} se ha creado correctamente";
 
 		else
@@ -105,5 +110,9 @@
 	private async Task<bool> Validar() {
 		var existe = await articuloService.ExisteDescripcionAsync(Articulo.ArticuloId, Articulo.Descripcion);
 		return existe;
+	}
+
+	public void Volver() {
+		Navigation.NavigateTo("/Articulo/Index");
 	}
 }
