@@ -20,17 +20,25 @@ public class ArticuloService(Contexto contexto)
 	}
 
 	public async Task<bool> ExisteDescripcion(int id, string descripcion) {
-		return await contexto.Articulos.AnyAsync(a => a.ArticuloId != id 
+		return await contexto.Articulos.AnyAsync(a => a.ArticuloId == id 
 		&& a.Descripcion.ToLower().Equals(descripcion.ToLower()));
 	}
 
 	private async Task<bool> Insertar(Articulos articulo) {
 		contexto.Articulos.Add(articulo);
+
+		if (articulo != null)
+			articulo.Precio = articulo.Costo + (articulo.Costo * (articulo.Ganancia / 100));
+
 		return await contexto.SaveChangesAsync() > 0;
 	}
 
 	private async Task<bool> Modificar(Articulos articulo) {
 		contexto.Articulos.Update(articulo);
+
+		if (articulo != null)
+			articulo.Precio = articulo.Costo + (articulo.Costo * (articulo.Ganancia / 100));
+
 		var modificado = await contexto.SaveChangesAsync() > 0;
 		contexto.Entry(articulo).State = EntityState.Detached;
 		return modificado;
