@@ -16,6 +16,14 @@ builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlite(ConStr));
 
 builder.Services.AddScoped<ArticuloService>();
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAnyOrigin",
+		builder => builder.AllowAnyOrigin() // Allow any origin
+						  .AllowAnyMethod()
+						  .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
