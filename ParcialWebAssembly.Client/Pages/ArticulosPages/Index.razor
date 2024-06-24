@@ -1,5 +1,6 @@
 ﻿@page "/Articulo/Index"
 
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IClientService<Articulos> articuloService
 @inject NavigationManager Navigation
 
@@ -70,9 +71,9 @@
 								<td>@articulo.Costo</td>
 								<td>@articulo.Ganancia</td>
 								<td>@articulo.Precio</td>
-								<td><button type="button" class="btn btn-outline-primary" @onclick="()=>MostrarPantallaObservar(articulo.ArticuloId)"></button></td>
-								<td><button type="button" class="btn btn-outline-warning" @onclick="()=>MostrarPantallaEditar(articulo.ArticuloId)"></button></td>
-								<td><button type="button" class="btn btn-outline-danger" @onclick="()=>MostrarPantallaEliminar(articulo.ArticuloId)"></button></td>
+								<td><button type="button" class="btn btn-outline-primary bi bi-eye-fill" @onclick="()=>MostrarPantallaObservar(articulo.ArticuloId)"></button></td>
+								<td><button type="button" class="btn btn-outline-warning bi bi-pencil-square" @onclick="()=>MostrarPantallaEditar(articulo.ArticuloId)"></button></td>
+								<td><button type="button" class="btn btn-outline-danger bi bi-trash2" @onclick="()=>MostrarPantallaEliminar(articulo.ArticuloId)"></button></td>
 							</tr>
 						}
 					</tbody>
