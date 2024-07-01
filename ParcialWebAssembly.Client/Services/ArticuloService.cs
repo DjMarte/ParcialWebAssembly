@@ -24,13 +24,6 @@ namespace ParcialWebAssembly.Client.Services
 			return null!;
 		}
 
-		//
-		public async Task<bool> ExisteDescripcionAsync(int id, string descripcion) {
-			var response = await httpClient.GetAsync($"api/articulos/existe-descripcion?id={id}&descripcion={descripcion}");
-			response.EnsureSuccessStatusCode();
-			return await response.Content.ReadFromJsonAsync<bool>();
-		}
-
 		public async Task<Articulos> CreateAsync(Articulos articulo) {
 			var resultado = await httpClient.PostAsJsonAsync("api/Articulos", articulo);
 
