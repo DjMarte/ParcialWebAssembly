@@ -1,8 +1,8 @@
 ﻿@page "/Articulo/Index"
 
-@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IClientService<Articulos> articuloService
 @inject NavigationManager Navigation
+@rendermode InteractiveWebAssembly
 
 <PageTitle>Art&iacute;culo Index</PageTitle>
 <div class="container">
@@ -63,17 +63,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (var articulo in Articulos)
+						@foreach (var articulos in Articulos)
 						{
 							<tr>
-								<td>@articulo.ArticuloId</td>
-								<td>@articulo.Descripcion</td>
-								<td>@articulo.Costo</td>
-								<td>@articulo.Ganancia</td>
-								<td>@articulo.Precio</td>
-								<td><button type="button" class="btn btn-outline-primary bi bi-eye-fill" @onclick="()=>MostrarPantallaObservar(articulo.ArticuloId)"></button></td>
-								<td><button type="button" class="btn btn-outline-warning bi bi-pencil-square" @onclick="()=>MostrarPantallaEditar(articulo.ArticuloId)"></button></td>
-								<td><button type="button" class="btn btn-outline-danger bi bi-trash2" @onclick="()=>MostrarPantallaEliminar(articulo.ArticuloId)"></button></td>
+								<td>@articulos.ArticuloId</td>
+								<td>@articulos.Descripcion</td>
+								<td>@articulos.Costo</td>
+								<td>@articulos.Ganancia</td>
+								<td>@articulos.Precio</td>
+								<td><button type="button" class="btn btn-outline-primary bi bi-eye-fill" @onclick="()=>MostrarPantallaObservar(articulos.ArticuloId)"></button></td>
+								<td><button type="button" class="btn btn-outline-warning bi bi-pencil-square" @onclick="()=>MostrarPantallaEditar(articulos.ArticuloId)"></button></td>
+								<td><button type="button" class="btn btn-outline-danger bi bi-trash2" @onclick="()=>MostrarPantallaEliminar(articulos.ArticuloId)"></button></td>
 							</tr>
 						}
 					</tbody>
@@ -88,7 +88,7 @@
 </div>
 
 @code {
-	public List<Articulos> Articulos { get; set; } = new List<Articulos>();
+	public List<Articulos> Articulos = new List<Articulos>();
 	private string filtro = "";
 	private string valorFiltro = "";
 
@@ -107,7 +107,7 @@
 	}
 
 	public void MostrarPantallaObservar(int id) {
-		Navigation.NavigateTo($"/Articulo/Delete/{id}");
+		Navigation.NavigateTo($"/Articulo/Details/{id}");
 	}
 
 	public void MostrarPantallaEditar(int id) {
