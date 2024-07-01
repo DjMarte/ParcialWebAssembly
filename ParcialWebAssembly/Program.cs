@@ -14,7 +14,7 @@ builder.Services.AddScoped<IClientService<Articulos>, ArticuloService>();
 builder.Services.AddScoped(a =>
 	new HttpClient
 	{
-		BaseAddress = new Uri((builder.Configuration.GetSection("Url")!.Value)!)
+		BaseAddress = new Uri("https://localhost:7252/")
 	});
 
 var app = builder.Build();
