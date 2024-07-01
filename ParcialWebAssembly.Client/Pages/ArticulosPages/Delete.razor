@@ -1,0 +1,67 @@
+﻿@page "/Articulo/Delete/{ArticuloId:int}"
+
+@inject IClientService<Articulos> articuloService
+@inject NavigationManager Navigation
+@rendermode InteractiveWebAssembly
+
+
+<PageTitle>Eliminar Art&iacute;culo</PageTitle>
+<div class="container">
+	<div class="shadow-lg">
+		@*Header*@
+		<div class="card-header text-center">
+			<div class="bg-primary text-white">
+				<h3><strong>Eliminar Art&iacute;culo</strong></h3>
+			</div>
+		</div>
+		@*Body*@
+		<div class="card-body">
+			<div class="text-center">
+				<h3><strong>¿Desea eliminar el art&iacute;culo @Articulo.Descripcion?</strong></h3>
+			</div>
+			<ul>
+				<li><strong>ArticuloId: </strong>@Articulo.ArticuloId</li>
+				<li><strong>Descripci&oacute;n: </strong>@Articulo.Descripcion</li>
+				<li><strong>Costo: </strong>@Articulo.Costo.ToString("N2")</li>
+				<li><strong>Ganancia: </strong>@Articulo.Ganancia.ToString("N2")</li>
+				<li><strong>Precio: </strong>@Articulo.Precio.ToString("N2")</li>
+			</ul>
+		</div>
+		@*Footer*@
+		<div class="card-footer">
+			<div class="text-center">
+				<button type="button" class="btn btn-outline-primary bi bi-arrow-90deg-left" @onclick="()=>Volver()"> Volver</button>
+				<button type="button" class="btn btn-outline-danger bi bi-trash2" @onclick="()=>Eliminar()"> Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+@Mensaje
+
+@code {
+	[Parameter]
+	public int ArticuloId { get; set; }
+	public Articulos Articulo { get; set; } = new Articulos();
+
+	public string Mensaje { get; set; } = string.Empty;
+
+	protected override async Task OnInitializedAsync() {
+		Articulo = await articuloService.GetByIdAsync(ArticuloId);
+	}
+
+	private async Task Eliminar() {
+		var eliminar = await articuloService.DeleteAsync(Articulo.ArticuloId);
+
+		if (eliminar) {
+			Mensaje = $"El Artículo {Articulo.Descripcion} se eliminado correctamente";
+			Volver();
+		}
+
+		else
+			Mensaje = $"No se ha podido eliminar el artículo";
+	}
+
+	public void Volver() {
+		Navigation.NavigateTo("/Articulo/Index");
+	}
+}
