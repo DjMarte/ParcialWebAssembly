@@ -28,6 +28,10 @@ public class ArticuloService(Contexto contexto) : IApiService<Articulos>
 
 	public async Task<bool> UpdateAsync(Articulos articulo) {
 		contexto.Entry(articulo).State = EntityState.Modified;
+
+		if (articulo != null)
+			articulo.Precio = articulo.Costo + (articulo.Costo * (articulo.Ganancia / 100));
+
 		return await contexto.SaveChangesAsync() > 0;
 	}
 
