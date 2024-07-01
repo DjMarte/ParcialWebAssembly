@@ -9,5 +9,4 @@ public interface IClientService<T>
 	public Task<T> CreateAsync(T articulo);
 	public Task<bool> UpdateAsync(T articulo);
 	public Task<bool> DeleteAsync(int id);
-	public Task<bool> ExisteDescripcionAsync(int id, string descripcion);
 }
