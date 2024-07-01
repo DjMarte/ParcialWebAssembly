@@ -40,8 +40,8 @@ namespace ParcialWebAssembly.Client.Services
 			return null!;
 		}
 
-		public async Task<bool> UpdateAsync(int id, Articulos articulo) {
-			var resultado = await httpClient.PutAsJsonAsync($"api/Articulos/{id}", articulo);
+		public async Task<bool> UpdateAsync(Articulos articulo) {
+			var resultado = await httpClient.PutAsJsonAsync($"api/Articulos/{articulo.ArticuloId}", articulo);
 			return resultado.IsSuccessStatusCode;
 		}
 
