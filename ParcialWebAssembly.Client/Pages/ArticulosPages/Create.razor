@@ -1,8 +1,8 @@
 ﻿@page "/Articulo/Create"
 
-@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IClientService<Articulos> articuloService
 @inject NavigationManager Navigation
+@rendermode InteractiveWebAssembly
 
 <PageTitle>Crear Art&iacute;culo</PageTitle>
 <EditForm Model="Articulo" OnValidSubmit="Guardar" FormName="CrearArticulo">
@@ -59,7 +59,7 @@
 		</div>
 	</div>
 </EditForm>
-
+<p class="alert-danger">@Mensaje</p>
 
 
 @code {
@@ -84,10 +84,8 @@
 		get => Articulo.Costo;
 		set
 		{
-			if (Articulo.Costo != value) {
-				Articulo.Costo = value;
-				CalcularPrecio();
-			}
+			Articulo.Costo = value;
+			CalcularPrecio();
 		}
 	}
 
@@ -95,10 +93,8 @@
 		get => Articulo.Ganancia;
 		set
 		{
-			if (Articulo.Ganancia != value) {
-				Articulo.Ganancia = value;
-				CalcularPrecio();
-			}
+			Articulo.Ganancia = value;
+			CalcularPrecio();
 		}
 
 	}
@@ -108,8 +104,10 @@
 	}
 
 	private async Task<bool> Validar() {
-		var existe = await articuloService.ExisteDescripcionAsync(Articulo.ArticuloId, Articulo.Descripcion);
-		return existe;
+		var lista = await articuloService.GetAllAsync();
+		if (lista.Where(d => d.Descripcion!.ToLower() == Articulo.Descripcion!.ToLower()).Any())
+			return true;
+		return false;
 	}
 
 	public void Volver() {
