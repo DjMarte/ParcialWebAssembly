@@ -18,7 +18,13 @@ builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlite(ConStr));
 
 builder.Services.AddScoped<IApiService<Articulos>, ArticuloService>();
 
-
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAnyOrigin",
+		builder => builder.AllowAnyOrigin() // Allow any origin
+						  .AllowAnyMethod()
+						  .AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -28,7 +34,7 @@ var app = builder.Build();
 	app.UseSwaggerUI();
 //}
 
-app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("AllowAnyOrigin"); // Use the CORS policy
 
 app.UseHttpsRedirection();
 
